@@ -39,7 +39,32 @@ Public-facing static website for **www.walkerpollittllc.com public v1.0**.
 └── _headers
 ```
 
-## Notes
-- Contact links are placeholders and should be updated before production.
-- Project portal is intentionally described as a future authenticated workspace.
-- This repository is designed to be beginner-safe and Cloudflare Pages friendly.
+## Branch and Active Work
+All changes for the website navigation rebuild have been compiled on the active development branch:
+`website-navigation-rebuild`
+
+## stack
+- Plain HTML5 + CSS3 (styled via Tailwind CSS CDN integration)
+- GitHub repository integration
+- Cloudflare Pages automated deployment target
+
+## Local Preview
+To preview the website locally:
+1. Open a terminal and run a lightweight local server (e.g. using Python or Node.js):
+   ```bash
+   python -m http.server 8000
+   # Or using Node.js:
+   npx http-server -p 8000
+   ```
+2. Open a browser and navigate to `http://localhost:8000`.
+
+## Deployment Instructions
+1. Push the branch `website-navigation-rebuild` to GitHub.
+2. In the Cloudflare Pages dashboard, you can build a Preview Deploy from the branch to verify performance.
+3. Once validated, merge the branch to `main` to trigger the production deployment to `https://walkerpollittllc.com`.
+
+## brand Separation Notice
+This repository contains references to both Walker Pollitt LLC (services and capabilities) and RavenForge Systems LLC (external demonstrations and cockpit environments). 
+* **Separation Policy**: All RavenForge products, trademarks, and demonstrations are owned by RavenForge Systems LLC and must remain separate.
+* **Link Config**: All external destinations are mapped to a centralized configuration object in `index.html` for easy domain changes.
+

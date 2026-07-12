@@ -1,106 +1,450 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100">
+<html lang="en" class="bg-slate-950 text-slate-100 scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walker Pollitt LLC | Systems & Engineering Portal</title>
+    <title>Walker Pollitt LLC | Systems Engineering, Infrastructure & Automation</title>
+    <meta name="description" content="Walker Pollitt LLC provides systems engineering, facility condition assessment, workflow automation, technical documentation, and operational architecture services.">
+    
+    <!-- Social Sharing Metadata -->
+    <meta property="og:title" content="Walker Pollitt LLC | Systems Engineering, Infrastructure & Automation">
+    <meta property="og:description" content="Walker Pollitt LLC provides systems engineering, facility condition assessment, workflow automation, and operational architecture services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://walkerpollittllc.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans antialiased min-h-screen flex flex-col justify-between">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#080C14',
+                            900: '#0F1626',
+                            800: '#1B2A4A',
+                            700: '#2E3F61',
+                        },
+                        cyan: {
+                            400: '#00E676', // Adjusted to bright green/cyan operational accents
+                            500: '#00B0FF', // Accents matching slate-and-cyan palette
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars & grid accents */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080C14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #24354F;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8E9AAB;
+        }
 
-    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        .grid-bg {
+            background-image: linear-gradient(to right, rgba(23, 34, 55, 0.2) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(23, 34, 55, 0.2) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+    <script>
+        // Centralized Link Configuration Value mapping
+        const LINK_CONFIG = {
+            walkerPollittUrl: "https://walkerpollittllc.com",
+            ravenForgeDemoUrl: "https://demo.walkerpollittllc.com", // Fallback: "https://ravenforge-demosite.wpollitt.workers.dev"
+            ravenForgeCockpitUrl: "https://ravenforge.us",
+            ravenForgeSystemsUrl: "https://ravenforgesystems.com",
+            githubUrl: "https://github.com/wpllc"
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Bind all elements with data-href-key dynamically
+            document.querySelectorAll("[data-href-key]").forEach(el => {
+                const key = el.getAttribute("data-href-key");
+                if (LINK_CONFIG[key]) {
+                    el.setAttribute("href", LINK_CONFIG[key]);
+                }
+            });
+
+            // Mobile menu toggler logic
+            const menuBtn = document.getElementById("mobile-menu-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener("click", () => {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+        });
+    </script>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between grid-bg">
+
+    <!-- 1. Header -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="h-8 w-8 rounded bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center font-bold text-white tracking-tighter">WP</div>
-                <span class="font-semibold tracking-wide text-sm uppercase text-slate-300">Walker Pollitt LLC</span>
+                <div class="h-8 w-8 rounded bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center font-bold text-slate-950 tracking-tighter">WP</div>
+                <span class="font-semibold tracking-wide text-xs uppercase text-slate-300 font-mono">Walker Pollitt LLC</span>
             </div>
-            <nav class="flex space-x-6 text-sm text-slate-400 font-medium">
-                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
-                <a href="#academic" class="hover:text-cyan-400 transition">Academic</a>
-                <a href="https://github.com" target="_blank" class="hover:text-cyan-400 transition">GitHub</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-400">
+                <a href="#hero" class="hover:text-cyan-500 transition">Home</a>
+                <a href="#capabilities" class="hover:text-cyan-500 transition">Capabilities</a>
+                <a href="#ravenforge" class="hover:text-cyan-500 transition">RavenForge</a>
+                <a href="#projects" class="hover:text-cyan-500 transition">Projects</a>
+                <a href="#research" class="hover:text-cyan-500 transition">Research</a>
+                <a href="#about" class="hover:text-cyan-500 transition">About</a>
+                <a href="#contact" class="hover:text-cyan-500 transition">Contact</a>
+                <a href="#ravenforge" class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 px-3 py-1.5 rounded hover:bg-cyan-500/20 transition">Explore RavenForge</a>
             </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-slate-200 focus:outline-none" aria-label="Toggle navigation menu">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 py-3 flex flex-col space-y-2 text-xs font-mono text-slate-400">
+            <a href="#hero" class="hover:text-cyan-500 transition">Home</a>
+            <a href="#capabilities" class="hover:text-cyan-500 transition">Capabilities</a>
+            <a href="#ravenforge" class="hover:text-cyan-500 transition">RavenForge</a>
+            <a href="#projects" class="hover:text-cyan-500 transition">Projects</a>
+            <a href="#research" class="hover:text-cyan-500 transition">Research</a>
+            <a href="#about" class="hover:text-cyan-500 transition">About</a>
+            <a href="#contact" class="hover:text-cyan-500 transition">Contact</a>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-12 md:py-20 w-full flex-grow">
+    <!-- 2. Hero Section -->
+    <main class="max-w-6xl mx-auto px-4 py-12 md:py-20 w-full flex-grow space-y-20">
         
-        <section class="mb-16 md:mb-24 max-w-3xl">
-            <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-xs font-mono text-cyan-400 mb-6">
+        <section id="hero" class="max-w-4xl space-y-6">
+            <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-[10px] font-mono text-cyan-500">
                 <span class="flex h-2 w-2 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                 </span>
-                <span>System Status: Operational</span>
+                <span>Demonstrations Available</span>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
-                Systems Engineering, Data Automation & Architecture.
-            </h1>
-            <p class="text-lg text-slate-400 leading-relaxed">
-                Welcome to the central node. This platform serves as a production portfolio, project clearinghouse, and academic repository tracking ongoing architecture developments.
-            </p>
-        </section>
-
-        <section id="portal" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            <div class="group bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="text-2xl mb-4 text-blue-500">📂</div>
-                    <h2 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">Project Directory</h2>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                        Production deployments, data optimization pipelines, and custom asset tracking software implementations.
-                    </p>
-                </div>
-                <a href="#" class="text-xs font-mono text-slate-400 group-hover:text-blue-400 flex items-center tracking-wider uppercase">
-                    Initialize Session &rarr;
-                </a>
-            </div>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
+                Systems Engineering for Infrastructure, Operations, and Intelligent Workflows.
+            </h1>
+            
+            <p class="text-base text-slate-400 leading-relaxed max-w-2xl">
+                Walker Pollitt LLC provides systems engineering, facility condition assessment, technical documentation, workflow automation, and operational architecture for environments where decisions must remain grounded in evidence.
+            </p>
 
-            <div class="group bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="text-2xl mb-4 text-cyan-500">🎓</div>
-                    <h2 class="text-xl font-bold mb-2 group-hover:text-cyan-400 transition">Academic Orbit</h2>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                        Systems Engineering and Electrical Engineering Technology tracking, laboratory research modules, and documentation.
-                    </p>
-                </div>
-                <a href="#" class="text-xs font-mono text-slate-400 group-hover:text-cyan-400 flex items-center tracking-wider uppercase">
-                    Access Repositories &rarr;
-                </a>
+            <div class="flex flex-wrap gap-3 pt-4 text-xs font-mono">
+                <a href="#capabilities" class="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 px-4 py-2.5 rounded transition">View Capabilities</a>
+                <a href="#ravenforge" class="bg-cyan-500 text-slate-950 px-4 py-2.5 rounded font-bold hover:bg-cyan-400 transition">Explore RavenForge</a>
+                <a href="#contact" class="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 px-4 py-2.5 rounded transition">Contact Walker Pollitt LLC</a>
             </div>
-
-            <div class="group bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="text-2xl mb-4 text-emerald-500">🛠️</div>
-                    <h2 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition">Automation Environment</h2>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                        Custom script utilities, continuous integration routines, tool configurations, and orchestration frameworks.
-                    </p>
-                </div>
-                <a href="#" class="text-xs font-mono text-slate-400 group-hover:text-emerald-400 flex items-center tracking-wider uppercase">
-                    View Environment &rarr;
-                </a>
-            </div>
-
-            <div class="group bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="text-2xl mb-4 text-purple-500">💼</div>
-                    <h2 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition">Corporate Gateway</h2>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
-                        Official profile for Walker Pollitt LLC. Commercial capability statements, documentation frameworks, and operational contact nodes.
-                    </p>
-                </div>
-                <a href="#" class="text-xs font-mono text-slate-400 group-hover:text-purple-400 flex items-center tracking-wider uppercase">
-                    Establish Contact &rarr;
-                </a>
-            </div>
-
         </section>
+
+        <!-- 3. Capabilities Section -->
+        <section id="capabilities" class="space-y-6">
+            <div class="border-b border-slate-800 pb-2">
+                <span class="text-xs uppercase tracking-widest text-[#8E9AAB] font-mono">Core Capabilities</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition">
+                    <span class="text-xl mb-4 block">🏢</span>
+                    <h2 class="text-base font-bold text-slate-200 mb-2 font-mono">Facility Condition Assessment</h2>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                        <li>Building mechanical, electrical, and plumbing (MEP) systems assessment</li>
+                        <li>Detailed MEP condition and telemetry equipment documentation</li>
+                        <li>Automated asset data collection and condition analysis templates</li>
+                        <li>Prioritized capital planning and remaining useful life assessment</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition">
+                    <span class="text-xl mb-4 block">⚙️</span>
+                    <h2 class="text-base font-bold text-slate-200 mb-2 font-mono">Systems Engineering</h2>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                        <li>Structured operational requirements definition and development</li>
+                        <li>Functional system decomposition and interface mapping</li>
+                        <li>Active threat modeling and vulnerability identification</li>
+                        <li>Decision safety verification and requirements traceability pipelines</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition">
+                    <span class="text-xl mb-4 block">⚡</span>
+                    <h2 class="text-base font-bold text-slate-200 mb-2 font-mono">Workflow & Data Automation</h2>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                        <li>Optimized field-data verification collection workflows</li>
+                        <li>OCR pipelines for automated cataloging of hardware nameplates</li>
+                        <li>Structured Excel/CSV automation and operational reporting tools</li>
+                        <li>Audit-ready schema validations for telemetry logs</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6 hover:border-slate-700 transition">
+                    <span class="text-xl mb-4 block">📝</span>
+                    <h2 class="text-base font-bold text-slate-200 mb-2 font-mono">Technical Documentation & Governance</h2>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                        <li>Standard Operating Procedures (SOPs) for high-consequence environments</li>
+                        <li>Technical architecture manuals and system engineering blueprints</li>
+                        <li>Immutable decision log registries and trace packages</li>
+                        <li>Verification matrices and configuration management control</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. RavenForge Gateway (Explicitly Separated Brand) -->
+        <section id="ravenforge" class="bg-slate-900/20 border border-cyan-500/20 rounded-2xl p-6 md:p-8 space-y-6">
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-mono uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-500 border border-cyan-500/30">
+                  Separate Technology Ecosystem
+                </span>
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="text-2xl md:text-3xl font-black tracking-widest font-mono text-slate-200">
+                    RAVENFORGE SYSTEMS
+                </h2>
+                <p class="text-sm text-cyan-500 font-mono font-semibold uppercase">
+                    Operational control between decision intelligence and action
+                </p>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed max-w-3xl">
+                RavenForge Systems develops safety governance, temporal reasoning, admissibility, and auditability technologies for AI-assisted and agentic systems. By establishing a downstream verification harness between intelligence models and physical actions, RavenForge prevents cascading system failures.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] font-mono text-slate-300">
+                <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Candidate Futures</span>
+                    Evaluating multiple parallel paths.
+                </div>
+                <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Active Risk Surface</span>
+                    Multi-axis probability mapping.
+                </div>
+                <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Admissibility Gating</span>
+                    Downstream safety constraints check.
+                </div>
+                <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Immutable Audit</span>
+                    Chained hashes for validation records.
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 text-xs font-mono pt-2">
+                <a data-href-key="ravenForgeDemoUrl" target="_blank" class="bg-cyan-500 text-slate-950 px-4 py-2 rounded font-bold hover:bg-cyan-400 transition">
+                    Launch Interactive Demo &rarr;
+                </a>
+                <a data-href-key="ravenForgeCockpitUrl" target="_blank" class="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 px-4 py-2 rounded transition">
+                    Open RavenForge Cockpit
+                </a>
+                <a data-href-key="ravenForgeSystemsUrl" target="_blank" class="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 px-4 py-2 rounded transition">
+                    Visit RavenForge Systems
+                </a>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 mt-4">
+                <p class="text-[9px] text-slate-500 leading-relaxed font-mono">
+                    <strong>LEGAL DISCLOSURE:</strong> RavenForge Systems LLC is a separate company. RavenForge names, systems, architectures, demonstrations, trademarks, research materials, and related intellectual property remain the property of RavenForge Systems LLC or their respective owners, and are not owned by Walker Pollitt LLC.
+                </p>
+            </div>
+        </section>
+
+        <!-- 5. Projects Section -->
+        <section id="projects" class="space-y-6">
+            <div class="border-b border-slate-800 pb-2">
+                <span class="text-xs uppercase tracking-widest text-[#8E9AAB] font-mono">Current Projects Directory</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">Facility Assessment Automation</span>
+                            <span class="text-[8px] font-mono uppercase px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30">Active Development</span>
+                        </div>
+                        <span class="text-[9px] font-mono text-slate-500 block mb-2">Context: Walker Pollitt LLC / Professional Work</span>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Field-data collection optimization utilities, OCR-assisted asset parsing engines, and structured evidence auditing reports.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">RavenForge Interactive Demonstration</span>
+                            <span class="text-[8px] font-mono uppercase px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Public Demo</span>
+                        </div>
+                        <span class="text-[9px] font-mono text-slate-500 block mb-2">Owner: RavenForge Systems LLC</span>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Browser-only simulation displaying candidate futures, temporal confidence decay, revalidation ticks, and audit ledger.
+                        </p>
+                    </div>
+                    <a data-href-key="ravenForgeDemoUrl" target="_blank" class="text-xs font-mono text-cyan-500 hover:underline">Launch Demo &rarr;</a>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">RavenForge Cockpit</span>
+                            <span class="text-[8px] font-mono uppercase px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Public Environment</span>
+                        </div>
+                        <span class="text-[9px] font-mono text-slate-500 block mb-2">Owner: RavenForge Systems LLC</span>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Visual command-center interface tracing the decision pipeline nodes downstream of agent workflows.
+                        </p>
+                    </div>
+                    <a data-href-key="ravenForgeCockpitUrl" target="_blank" class="text-xs font-mono text-cyan-500 hover:underline">Open Cockpit &rarr;</a>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">RavenCore Orchestration</span>
+                            <span class="text-[8px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">In Development</span>
+                        </div>
+                        <span class="text-[9px] font-mono text-slate-500 block mb-2">Context: Experimental Internal System</span>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Internal infrastructure orchestration, validation, and container simulation libraries for ongoing tool testing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 md:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-300 font-mono">Corten Crows Research</span>
+                            <span class="text-[8px] font-mono uppercase px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-500 border border-cyan-500/30">Independent Community</span>
+                        </div>
+                        <span class="text-[9px] font-mono text-slate-500 block mb-2">Context: Research Group Collaboration</span>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Independent research group focus tracking systems design, verification methodologies, and defensive coding configurations.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. Research Section -->
+        <section id="research" class="space-y-6">
+            <div class="border-b border-slate-800 pb-2">
+                <span class="text-xs uppercase tracking-widest text-[#8E9AAB] font-mono">Research Themes</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs font-mono">
+                <div class="bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ AI Governance</span>
+                    Control at the action boundary.
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Temporal Reasoning</span>
+                    Decay limits on sensor validation.
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Confidence Aging</span>
+                    Evidence freshness metrics.
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Admissibility Gating</span>
+                    Safety rule containment filters.
+                </div>
+                <div class="bg-slate-900/50 p-3 rounded border border-slate-800">
+                    <span class="text-cyan-500 block mb-1">■ Bounded Execution</span>
+                    Fail-safe path options.
+                </div>
+            </div>
+
+            <div class="bg-slate-900/20 border border-slate-800 p-4 rounded-lg">
+                <p class="text-[9px] text-slate-500 font-mono leading-relaxed">
+                    <strong>RESEARCH BOUNDARY:</strong> Public summaries are provided for educational and professional context. Detailed RavenForge architecture and implementation materials remain controlled intellectual property of RavenForge Systems LLC.
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. About Section -->
+        <section id="about" class="space-y-6">
+            <div class="border-b border-slate-800 pb-2">
+                <span class="text-xs uppercase tracking-widest text-[#8E9AAB] font-mono">About Walker Pollitt LLC</span>
+            </div>
+
+            <div class="max-w-3xl space-y-4 text-xs text-slate-400 leading-relaxed font-mono">
+                <p>
+                    Walker Pollitt LLC applies systems engineering discipline to facility assets, MEP telemetry monitoring, workflow automation, and high-consequence decision controls.
+                </p>
+                <p>
+                    Grounded in systems engineering methods and technical documentation standards, our operations focus on providing practical systems-decompositions, evidence validation procedures, and spreadsheet/reporting automation scripts that help complex operations remain safe and reliable.
+                </p>
+            </div>
+        </section>
+
+        <!-- 8. Contact Section -->
+        <section id="contact" class="space-y-6">
+            <div class="border-b border-slate-800 pb-2">
+                <span class="text-xs uppercase tracking-widest text-[#8E9AAB] font-mono">Establish Connection</span>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800 rounded-xl p-6 max-w-md space-y-4">
+                <p class="text-xs text-slate-400 font-mono">
+                    For business inquiries, systems assessment consulting, or technical coordination requests, contact the central node:
+                </p>
+                <div class="space-y-2 text-xs font-mono">
+                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
+                        <span class="text-slate-500">EMAIL:</span>
+                        <a href="mailto:walker.pollitt@walkerpollittllc.com" class="text-cyan-500 hover:underline">walker.pollitt@walkerpollittllc.com</a>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
+                        <span class="text-slate-500">GITHUB:</span>
+                        <a data-href-key="githubUrl" target="_blank" class="text-cyan-500 hover:underline">github.com/wpllc</a>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
+                        <span class="text-slate-500">RAVENFORGE SYSTEMS:</span>
+                        <a data-href-key="ravenForgeSystemsUrl" target="_blank" class="text-cyan-500 hover:underline">ravenforgesystems.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="border-t border-slate-900 bg-slate-950 py-6 mt-12">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-600 space-y-2 sm:space-y-0 font-mono">
-            <div>&copy; 2026 Walker Pollitt LLC. All rights reserved.</div>
-            <div>Locally Node Host // Secured via Cloudflare</div>
+    <!-- 9. Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 space-y-6 font-mono text-[10px] text-slate-600">
+            <div class="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-slate-900 pb-4">
+                <div>&copy; 2026 Walker Pollitt LLC. All rights reserved.</div>
+                <div class="flex space-x-4">
+                    <a data-href-key="githubUrl" target="_blank" class="hover:text-cyan-500 transition">GitHub</a>
+                    <a data-href-key="ravenForgeSystemsUrl" target="_blank" class="hover:text-cyan-500 transition">RavenForge Systems</a>
+                    <a data-href-key="ravenForgeDemoUrl" target="_blank" class="hover:text-cyan-500 transition">RavenForge Demo</a>
+                    <a data-href-key="ravenForgeCockpitUrl" target="_blank" class="hover:text-cyan-500 transition">RavenForge Cockpit</a>
+                </div>
+            </div>
+
+            <p class="leading-relaxed">
+                <strong>LEGAL SEPARATION NOTICE:</strong> Walker Pollitt LLC and RavenForge Systems LLC are completely separate legal entities. RavenForge products, demonstrations, code systems, architectures, names, trademarks, and associated intellectual property remain the sole property of RavenForge Systems LLC or their respective owners and do not represent property or assets of Walker Pollitt LLC.
+            </p>
         </div>
     </footer>
 
