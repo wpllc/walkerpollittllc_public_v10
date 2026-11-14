@@ -1,0 +1,39 @@
+name: Render public product copy
+on:
+  push:
+    branches: [main]
+    paths:
+      - content/ravenforge.json
+      - templates/index.html
+      - scripts/build_site.py
+      - .github/workflows/render-site.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: render-public-site
+  cancel-in-progress: true
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate and validate public copy
+        run: |
+          python scripts/build_site.py
+          python scripts/build_site.py --check
+          cp content/ravenforge.json ravenforge.json
+      - name: Commit generated website for existing Pages deployment
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html ravenforge.json
+          if git diff --cached --quiet; then
+            echo 'Public copy is current.'
+            exit 0
+          fi
+          git commit -m 'Render website from canonical RavenForge content'
+          git push origin HEAD:main
