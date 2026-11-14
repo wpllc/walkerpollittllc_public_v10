@@ -1,0 +1,41 @@
+{
+  "name": "RavenForge",
+  "creator": "Walker Pollitt",
+  "business": "Walker Pollitt LLC",
+  "ownership": "RavenForge is proprietary software created and owned by Walker Pollitt. Patent application pending.",
+  "summary": "A governed context and workflow platform for AI-assisted engineering. RavenForge connects task execution, evidence, persistent actor continuity, and reviewable decisions across tools and model providers.",
+  "reviewed_on": "2026-11-14",
+  "features": [
+    {
+      "name": "Governed task exchange",
+      "status": "Implemented",
+      "description": "ROOKERY coordinates task admission, exclusive checkout, output validation, and accepted check-in with recorded provenance."
+    },
+    {
+      "name": "Task and compute visibility",
+      "status": "Implemented",
+      "description": "WAYFINDER provides weighted task selection and visibility into available compute and runtime readiness."
+    },
+    {
+      "name": "Health and freshness monitoring",
+      "status": "Implemented",
+      "description": "HEIMDALL observes component health, evidence freshness, and recorded boundary findings."
+    },
+    {
+      "name": "Separate continuity stores",
+      "status": "Implemented",
+      "description": "Personal context, project records, and individual Actor Wells remain separate. Actor and project workflows retain traceable continuity and decision records."
+    },
+    {
+      "name": "Context recovery across sessions",
+      "status": "Verified in bounded workflows",
+      "description": "Actor workflows have recovered prior reports and corrections in fresh sessions, preserving the source and provenance of supplied context."
+    },
+    {
+      "name": "Asterion coding workflow",
+      "status": "Verified in a bounded task",
+      "description": "A real provider-backed coding task produced a Python source change, passed eight independent checks, completed governed check-in, and recorded the actor's own continuity."
+    }
+  ],
+  "development_note": "RavenForge is under active development. Additional provider integrations, local model execution, and broader autonomous workflows are being tested. Public demonstrations illustrate concepts and are separate from private operations."
+}
