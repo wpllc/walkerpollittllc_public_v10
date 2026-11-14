@@ -1,70 +1,25 @@
+# Walker Pollitt LLC website
 
-# walkerpollittllc-public-v1
+Business: Walker Pollitt LLC. Software: RavenForge, created and owned by Walker Pollitt, with a patent application pending.
 
-Public-facing static website for **www.walkerpollittllc.com public v1.0**.
+## One source for product copy
 
-## Purpose
-- Landing page for internet traffic
-- Portfolio showcase for systems architecture and designs
-- Public-safe portal entry to projects (live and in progress)
-- Future-ready separation between public presence and private workspace
+Edit `content/ravenforge.json` for ownership, product summary, feature descriptions, and verified implementation status. This public-safe manifest is the canonical website product copy. Keep internal records, provider credentials, and private source code out of it.
 
-## Stack
-- Plain HTML + CSS
-- GitHub repository
-- Cloudflare Pages deployment target
+Run `python scripts/build_site.py` to generate `index.html` and a deployment-only `dist` directory. Run `python scripts/build_site.py --check` to verify branding, generated copy, internal anchors, and configured link targets. Page structure and styling live in `templates/index.html`.
 
-## Recommended Cloudflare Pages setup
-1. Create a new GitHub repository and upload these files.
-2. In Cloudflare Dashboard, go to **Workers & Pages**.
-3. Select **Create application → Pages → Connect to Git**.
-4. Connect GitHub, select this repository, and begin setup.
-5. Build command: leave blank (static site).
-6. Build output directory: `/`
-7. Production branch: `main`
-8. After first deploy, add custom domain `www.walkerpollittllc.com` from the **Custom domains** tab.
+The build also publishes `/ravenforge.json`, so other public sites can consume the same approved manifest. It does not expose or automatically publish the private software repository. No cross-repository synchronization has been activated.
 
-## File structure
-```
-/
-├── index.html
-├── assets/styles.css
-├── systems/index.html
-├── portfolio/index.html
-├── projects/index.html
-├── about/index.html
-├── contact/index.html
-├── robots.txt
-├── sitemap.xml
-└── _headers
-```
+## Existing deployment
 
-## Branch and Active Work
-All changes for the website navigation rebuild have been compiled on the active development branch:
-`website-navigation-rebuild`
+Repository: `https://github.com/wpllc/walkerpollittllc_public_v10`
 
-## stack
-- Plain HTML5 + CSS3 (styled via Tailwind CSS CDN integration)
-- GitHub repository integration
-- Cloudflare Pages automated deployment target
+Cloudflare Pages project: `walkerpollittllc-public-v10`. Public URL: `https://walkerpollittllc.com`.
 
-## Local Preview
-To preview the website locally:
-1. Open a terminal and run a lightweight local server (e.g. using Python or Node.js):
-   ```bash
-   python -m http.server 8000
-   # Or using Node.js:
-   npx http-server -p 8000
-   ```
-2. Open a browser and navigate to `http://localhost:8000`.
+For automatic generation from each repository update, configure the Pages build command as `python scripts/build_site.py` and build output directory as `dist`. These deployment settings must be applied to the existing project; they have not been changed by the prepared patch. The generated root `index.html` remains compatible with its existing static deployment.
 
-## Deployment Instructions
-1. Push the branch `website-navigation-rebuild` to GitHub.
-2. In the Cloudflare Pages dashboard, you can build a Preview Deploy from the branch to verify performance.
-3. Once validated, merge the branch to `main` to trigger the production deployment to `https://walkerpollittllc.com`.
+Deploy only `dist` when using direct upload. It contains the public HTML, manifest, robots.txt, sitemap.xml, and security headers. Feature evidence and validation notes belong outside the public output.
 
-## brand Separation Notice
-This repository contains references to both Walker Pollitt LLC (services and capabilities) and RavenForge Systems LLC (external demonstrations and cockpit environments). 
-* **Separation Policy**: All RavenForge products, trademarks, and demonstrations are owned by RavenForge Systems LLC and must remain separate.
-* **Link Config**: All external destinations are mapped to a centralized configuration object in `index.html` for easy domain changes.
+## Status accuracy
 
+The November 14, 2026 feature review distinguishes implemented components from bounded workflow demonstrations. It does not claim full provider integration, unrestricted autonomous coding, or completed local-model deployment. Recheck evidence before promoting a feature's status.

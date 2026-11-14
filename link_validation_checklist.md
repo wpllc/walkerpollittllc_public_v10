@@ -1,25 +1,12 @@
-# Link Validation Checklist - Walker Pollitt LLC Web Rebuild
+# Website validation
 
-This checklist tracks the verification of internal and external destinations on the website.
+- Run `python scripts/build_site.py` and `python scripts/build_site.py --check`.
+- Verify the product manifest identifies Walker Pollitt as RavenForge's creator and owner and states that the patent application is pending.
+- Check all current public files for prohibited former branding and retired domain links.
+- Confirm the hero, capabilities, RavenForge, tools, projects, research, about, and contact anchors resolve.
+- Keep the private sign-in tool URLs intact and distinguish private operations from public demonstrations.
+- Check desktop and mobile layouts, navigation, and feature cards in a browser before release.
+- Publish only the allowlisted `dist` output when using direct upload.
+- After deployment, verify the live ownership, footer, project cards, contact links, and six feature cards.
 
-## 1. Internal Anchors Verification
-- [x] `#hero` successfully maps to the Top Landing Hero container.
-- [x] `#capabilities` successfully maps to the Walker Pollitt LLC Core Capabilities grid.
-- [x] `#ravenforge` successfully maps to the RavenForge Systems Gateway brand panel.
-- [x] `#projects` successfully maps to the Current Projects Directory cards grid.
-- [x] `#research` successfully maps to the Research Themes tags list.
-- [x] `#about` successfully maps to the About corporate statement block.
-- [x] `#contact` successfully maps to the Establish Connection email/social widget.
-
-## 2. Centralized Link Mappings (`LINK_CONFIG`)
-- [x] `walkerPollittUrl` maps to `https://walkerpollittllc.com`
-- [x] `ravenForgeDemoUrl` maps to `https://demo.walkerpollittllc.com` (verified redirect target for Cloudflare Workers/Pages fallback).
-- [x] `ravenForgeCockpitUrl` maps to `https://ravenforge.us`
-- [x] `ravenForgeSystemsUrl` maps to `https://ravenforgesystems.com`
-- [x] `githubUrl` maps to `https://github.com/wpllc`
-
-## 3. Brand & Legal Verification
-- [x] RavenForge Gateway includes explicit legal separation notice.
-- [x] Page footer contains the secondary legal separation note.
-- [x] No references to RavenForge ownership by Walker Pollitt LLC exist.
-- [x] Contact email is verified as: `walker.pollitt@walkerpollittllc.com`
+The local builder validates source structure and copy. Browser layout and production publication require separate verification; this checklist does not claim they have passed.
