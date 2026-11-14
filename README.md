@@ -4,7 +4,7 @@ Business: Walker Pollitt LLC. Software: RavenForge, created and owned by Walker 
 
 ## One source for product copy
 
-Edit `content/ravenforge.json` for ownership, product summary, feature descriptions, and verified implementation status. This public-safe manifest is the canonical website product copy. Keep internal records, provider credentials, and private source code out of it.
+Edit `content/ravenforge.json` for ownership, product summary, feature descriptions, and verified implementation status. Committing changes to that file on `main` automatically runs the `Render public product copy` GitHub workflow. It validates and generates the page, then commits the public HTML and `/ravenforge.json` for the existing Cloudflare Pages deployment. Keep internal records, provider credentials, and private source code out of the manifest.
 
 Run `python scripts/build_site.py` to generate `index.html` and a deployment-only `dist` directory. Run `python scripts/build_site.py --check` to verify branding, generated copy, internal anchors, and configured link targets. Page structure and styling live in `templates/index.html`.
 
@@ -16,7 +16,7 @@ Repository: `https://github.com/wpllc/walkerpollittllc_public_v10`
 
 Cloudflare Pages project: `walkerpollittllc-public-v10`. Public URL: `https://walkerpollittllc.com`.
 
-For automatic generation from each repository update, configure the Pages build command as `python scripts/build_site.py` and build output directory as `dist`. These deployment settings must be applied to the existing project; they have not been changed by the prepared patch. The generated root `index.html` remains compatible with its existing static deployment.
+Automatic generation is handled by `.github/workflows/render-site.yml`; the existing Cloudflare build settings are preserved. The workflow uses the repository's temporary GitHub Actions token and needs no Cloudflare secret. Its generated commit triggers the existing Pages integration. Template and builder changes also trigger generation; generated HTML changes do not trigger a render loop.
 
 Deploy only `dist` when using direct upload. It contains the public HTML, manifest, robots.txt, sitemap.xml, and security headers. Feature evidence and validation notes belong outside the public output.
 
