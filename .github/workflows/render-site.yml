@@ -25,7 +25,6 @@ jobs:
         run: |
           python scripts/build_site.py
           python scripts/build_site.py --check
-          cp content/ravenforge.json ravenforge.json
       - name: Commit generated website for existing Pages deployment
         run: |
           git config user.name 'github-actions[bot]'

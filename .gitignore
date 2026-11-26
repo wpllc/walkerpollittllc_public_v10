@@ -2,3 +2,6 @@
 Thumbs.db
 dist/
 __pycache__/
+.wrangler/
+.dev.vars*
+.env*

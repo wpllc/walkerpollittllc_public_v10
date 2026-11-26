@@ -4,6 +4,7 @@
   "business": "Walker Pollitt LLC",
   "ownership": "RavenForge is proprietary software created and owned by Walker Pollitt. Patent application pending.",
   "summary": "A governed context and workflow platform for AI-assisted engineering. RavenForge connects task execution, evidence, persistent actor continuity, and reviewable decisions across tools and model providers.",
+  "landing_summary": "RavenForge coordinates AI-assisted work across people, tools, and available compute. Follow a task from assignment through evidence review and human approval.",
   "reviewed_on": "2026-11-14",
   "features": [
     {

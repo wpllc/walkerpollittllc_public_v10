@@ -1,25 +1,21 @@
 # Walker Pollitt LLC website
 
-Business: Walker Pollitt LLC. Software: RavenForge, created and owned by Walker Pollitt, with a patent application pending.
+The public site pairs Walker Pollitt LLC services with the RavenForge demo collection. RavenForge is software created and owned by Walker Pollitt.
 
-## One source for product copy
+## Build
 
-Edit `content/ravenforge.json` for ownership, product summary, feature descriptions, and verified implementation status. Committing changes to that file on `main` automatically runs the `Render public product copy` GitHub workflow. It validates and generates the page, then commits the public HTML and `/ravenforge.json` for the existing Cloudflare Pages deployment. Keep internal records, provider credentials, and private source code out of the manifest.
+```sh
+python scripts/build_site.py
+python scripts/build_site.py --check
+node --test scripts/private-access.test.mjs
+```
 
-Run `python scripts/build_site.py` to generate `index.html` and a deployment-only `dist` directory. Run `python scripts/build_site.py --check` to verify branding, generated copy, internal anchors, and configured link targets. Page structure and styling live in `templates/index.html`.
+The Cloudflare Pages build runs the same Python command and deploys only `dist/`. Edit `templates/index.html` for the landing and `content/ravenforge.json` for public product copy. `/ravenforge.json` continues to expose the reusable public manifest. The existing render workflow keeps the generated files in sync on `main`.
 
-The build also publishes `/ravenforge.json`, so other public sites can consume the same approved manifest. It does not expose or automatically publish the private software repository. No cross-repository synchronization has been activated.
+## Private access
 
-## Existing deployment
+`/private/` runs through the Pages Function. The two areas are configured independently using encrypted production bindings `WPLLC_PORTFOLIO` and `WPLLC_PROJECT`. Leave these bindings absent on public previews. Private copy belongs in the encrypted binding, outside Git and the static build folder.
 
-Repository: `https://github.com/wpllc/walkerpollittllc_public_v10`
+Each binding contains a JSON object with `verifier` (the unpadded base64url SHA-256 digest of a generated 32-byte base64url password), `title`, `intro`, and `sections` with `heading` and `text` strings. Generate a different password for each area and give the operator that password using a private channel. Rotating a verifier invalidates that area's existing cookies. The operator workspace on `app.walkerpollittllc.com` has its own existing sign-in.
 
-Cloudflare Pages project: `walkerpollittllc-public-v10`. Public URL: `https://walkerpollittllc.com`.
-
-Automatic generation is handled by `.github/workflows/render-site.yml`; the existing Cloudflare build settings are preserved. The workflow uses the repository's temporary GitHub Actions token and needs no Cloudflare secret. Its generated commit triggers the existing Pages integration. Template and builder changes also trigger generation; generated HTML changes do not trigger a render loop.
-
-Deploy only `dist` when using direct upload. It contains the public HTML, manifest, robots.txt, sitemap.xml, and security headers. Feature evidence and validation notes belong outside the public output.
-
-## Status accuracy
-
-The November 14, 2026 feature review distinguishes implemented components from bounded workflow demonstrations. It does not claim full provider integration, unrestricted autonomous coding, or completed local-model deployment. Recheck evidence before promoting a feature's status.
+The private function returns only authorized sections, prevents cache reuse, and requires a fresh sign-in when a session expires. After deploying, check anonymous access, incorrect passwords, both independent scopes, sign-out, and the three demo links.
