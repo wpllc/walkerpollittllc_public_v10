@@ -13,6 +13,8 @@ FILES = (
     "assets/site.css", "assets/council.jpg", "assets/muster.jpg", "assets/facility.jpg",
     "travel/index.html", "travel/editorial.css", "travel/mobile-office-hotspot.webp",
     "travel/stop-letting-your-laptop-eat-your-hotspot/index.html",
+    "travel/finding-lodging-in-crowded-project-towns/index.html",
+    "travel/project-town-lodging.jpg",
     "robots.txt", "sitemap.xml", "_headers", "_redirects", "_worker.js", "_routes.json",
 )
 
