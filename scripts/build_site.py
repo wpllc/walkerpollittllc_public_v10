@@ -11,6 +11,8 @@ RETIRED = re.compile(r"raven\s*forge\s*systems|ravenforgesystems|ravenforge\s+ll
 FILES = (
     "index.html", "about/index.html", "404.html", "ravenforge.json",
     "assets/site.css", "assets/council.jpg", "assets/muster.jpg", "assets/facility.jpg",
+    "travel/index.html", "travel/editorial.css",
+    "travel/stop-letting-your-laptop-eat-your-hotspot/index.html",
     "robots.txt", "sitemap.xml", "_headers", "_redirects", "_worker.js", "_routes.json",
 )
 
@@ -42,7 +44,7 @@ def main():
     if re.search(r"\{\{[A-Z_]+\}\}", page):
         raise ValueError("Unresolved landing template field")
     validate_html(page, "index.html")
-    for name in ("about/index.html", "404.html"):
+    for name in (path for path in FILES if path.endswith(".html") and path != "index.html"):
         validate_html((ROOT / name).read_text(encoding="utf-8"), name)
     for name, content in {"index.html": page, "ravenforge.json": manifest_text}.items():
         path = ROOT / name

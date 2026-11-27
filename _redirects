@@ -6,3 +6,7 @@
 /contact/ /#contact 301
 /portfolio /private/portfolio 302
 /portfolio/ /private/portfolio 302
+/blog /travel/ 301
+/blog/ /travel/ 301
+/blog/stop-letting-your-laptop-eat-your-hotspot /travel/stop-letting-your-laptop-eat-your-hotspot/ 301
+/blog/stop-letting-your-laptop-eat-your-hotspot/ /travel/stop-letting-your-laptop-eat-your-hotspot/ 301
