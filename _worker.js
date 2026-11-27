@@ -7,7 +7,9 @@ const encoder = new TextEncoder();
 const passwordPattern = /^[A-Za-z0-9_-]{43}$/;
 const proof = encoder.encode('Walker Pollitt LLC private access login');
 const privateHeaders = {
-  'Cache-Control': 'private, no-store',
+  // Keep Cloudflare from replacing mailto links with script-dependent links.
+  // Private pages deliberately disallow scripts in their CSP.
+  'Cache-Control': 'private, no-store, no-transform',
   'X-Robots-Tag': 'noindex, nofollow',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
@@ -130,7 +132,7 @@ function loginForm(target, error) {
 }
 
 const logout = '<form class="logout" method="post" action="/private/logout"><button type="submit">Sign out of project materials</button></form>';
-const requestAccess = '<a class="text-link" href="mailto:walker.pollitt@walkerpollittllc.com?subject=Private%20project%20access">Request access</a>';
+const requestAccess = '<!--email_off--><a class="text-link" href="mailto:walker.pollitt@walkerpollittllc.com?subject=Private%20project%20access">Request access by email</a><span class="access-email"> · walker.pollitt@walkerpollittllc.com</span><!--/email_off-->';
 
 function directory(request, configured, granted, error = false) {
   const entries = granted.map(area => `<section class="card"><h2>${escapeHtml(configured[area].title)}</h2>

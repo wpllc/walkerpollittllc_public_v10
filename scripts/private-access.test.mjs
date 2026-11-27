@@ -28,7 +28,7 @@ function post(path, fields, requestOrigin = origin, env = bindings) {
 }
 
 async function privateBody(response) {
-  assert.equal(response.headers.get('Cache-Control'), 'private, no-store');
+  assert.equal(response.headers.get('Cache-Control'), 'private, no-store, no-transform');
   assert.equal(response.headers.get('X-Robots-Tag'), 'noindex, nofollow');
   return response.text();
 }
@@ -53,6 +53,18 @@ test('anonymous traffic gets generic sign-in and receives no private data', asyn
   assert.equal(missing.status, 404);
   assert(!((await privateBody(missing)).includes(title)));
   assert.equal(await (await get('/private/project', '', bindings, 'HEAD')).text(), '');
+});
+
+test('request access works without a Cloudflare decoding script while scripts stay blocked', async () => {
+  for (const path of ['/private/', '/private/portfolio', '/private/project']) {
+    const response = await get(path);
+    assert.match(response.headers.get('Content-Security-Policy'), /default-src 'none'/);
+    const html = await privateBody(response);
+    assert.match(html, /<!--email_off--><a[^>]+href="mailto:walker.pollitt@walkerpollittllc.com\?subject=Private%20project%20access"/);
+    assert.match(html, /Request access by email/);
+    assert(!html.includes('/cdn-cgi/l/email-protection'));
+    assert(!html.includes('<script'));
+  }
 });
 
 test('the two passwords grant only their own pages and directory entries', async () => {

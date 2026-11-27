@@ -11,7 +11,7 @@ RETIRED = re.compile(r"raven\s*forge\s*systems|ravenforgesystems|ravenforge\s+ll
 FILES = (
     "index.html", "about/index.html", "404.html", "ravenforge.json",
     "assets/site.css", "assets/council.jpg", "assets/muster.jpg", "assets/facility.jpg",
-    "travel/index.html", "travel/editorial.css",
+    "travel/index.html", "travel/editorial.css", "travel/mobile-office-hotspot.webp",
     "travel/stop-letting-your-laptop-eat-your-hotspot/index.html",
     "robots.txt", "sitemap.xml", "_headers", "_redirects", "_worker.js", "_routes.json",
 )
